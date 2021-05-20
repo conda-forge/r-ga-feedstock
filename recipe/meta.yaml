@@ -1,4 +1,4 @@
-{% set version = '3.2' %}
+{% set version = "3.2.1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,12 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/GA_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/GA/GA_{{ version }}.tar.gz
-  sha256: c7a001b9354a3ea6280362ddb2d1e5dc7ede2bc324fd9564a58c42ccfe6a75ec
+  sha256: b494d970b9a2876fdb805d2ba0ac7d8a2cfd875b4e432d1c532cdb1b50eb562d
 
 build:
-  merge_build_host: True  # [win]
-  number: 2
+  merge_build_host: true  # [win]
+  number: 0
+  skip: true  # [win and r_base == "3.6"]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -55,18 +56,13 @@ test:
 
 about:
   home: https://luca-scr.github.io/GA/
-  license: GPL (>= 2)
-  summary: Flexible general-purpose toolbox implementing genetic algorithms (GAs) for stochastic
-    optimisation. Binary, real-valued, and permutation representations are available
-    to optimize a fitness function, i.e. a function provided by users depending on their
-    objective function. Several genetic operators are available and can be combined
-    to explore the best settings for the current task. Furthermore, users can define
-    new genetic operators and easily evaluate their performances. Local search using
-    general-purpose optimisation algorithms can be applied stochastically to exploit
-    interesting regions. GAs can be run sequentially or in parallel, using an explicit
-    master-slave parallelisation or a coarse-grain islands approach.
+  license: GPL-2.0-or-later
+  summary: Flexible general-purpose toolbox implementing genetic algorithms (GAs) for stochastic optimisation. Binary, real-valued, and permutation representations are available to optimize a fitness function, i.e. a function provided by users depending on their objective function. Several genetic operators are available
+    and can be combined to explore the best settings for the current task. Furthermore, users can define new genetic operators and easily evaluate their performances. Local search using general-purpose optimisation algorithms can be applied stochastically to exploit interesting regions. GAs can be run sequentially or in
+    parallel, using an explicit master-slave parallelisation or a coarse-grain islands approach.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
