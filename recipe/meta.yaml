@@ -1,4 +1,4 @@
-{% set version = "3.2.2" %}
+{% set version = "3.2.3" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/GA_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/GA/GA_{{ version }}.tar.gz
-  sha256: 6245c634a11b8414bde7ed326b8c615512645489b19969619484c865e900bf8c
+  sha256: eb3a11798d42a7f105834363f571f7ca435728a5a6a324c703d7d2f9cbc90b60
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   skip: true  # [win and r_base == "3.6"]
   rpaths:
     - lib/R/lib/
