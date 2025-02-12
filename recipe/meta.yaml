@@ -62,6 +62,13 @@ test:
   commands:
     ## try some null tests
     - $R -e "sessionInfo()"  # [not win]
+    - $R -e "library('iterators');sessionInfo()"  # [not win]
+    - $R -e "library('foreach');sessionInfo()"  # [not win]
+    - $R -e "library('compiler');sessionInfo()"  # [not win]
+    - $R -e "library('cli');sessionInfo()"  # [not win]
+    - $R -e "library('crayon');sessionInfo()"  # [not win]
+    - $R -e "library('Rcpp');sessionInfo()"  # [not win]
+    - $R -e "library('codetools');sessionInfo()"  # [not win]
     - $R -e "library('GA');sessionInfo()"  # [not win]
     - $R -e "sessionInfo()"  # [not win]
     #- $R -e "library('GA')"           # [not win]
