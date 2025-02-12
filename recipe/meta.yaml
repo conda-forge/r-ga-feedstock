@@ -20,6 +20,13 @@ build:
 
 requirements:
   build:
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+    - r-cli                        # [build_platform != target_platform]
+    - r-crayon                     # [build_platform != target_platform]
+    - r-foreach                    # [build_platform != target_platform]
+    - r-iterators                  # [build_platform != target_platform]
+    - r-rcpp                       # [build_platform != target_platform]
+    - r-rcpparmadillo              # [build_platform != target_platform]
     - {{ compiler('c') }}          # [not win]
     - {{ stdlib("c") }}            # [not win]
     - {{ compiler('m2w64_c') }}    # [win]
@@ -32,8 +39,8 @@ requirements:
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
-    - r-base =4.4.2=h06eca8b_0   # [r_base == 4.4]
-    - r-base =4.3.3=hc8efcea_15  # [r_base == 4.3]
+    - r-base =4.4.2=h06eca8b_0   # [r_base == "4.4"]
+    - r-base =4.3.3=hc8efcea_15  # [r_base == "4.3"]
     - r-rcpp
     - r-rcpparmadillo
     - r-cli
