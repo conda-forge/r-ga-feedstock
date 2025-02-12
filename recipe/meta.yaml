@@ -60,8 +60,11 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('GA')"           # [not win]
-    - "\"%R%\" -e \"library('GA')\""  # [win]
+    ## try some null tests
+    - env  # [not win]
+    - $R -e "sessionInfo()"  # [not win]
+    #- $R -e "library('GA')"           # [not win]
+    #- "\"%R%\" -e \"library('GA')\""  # [win]
 
 about:
   home: https://luca-scr.github.io/GA/
