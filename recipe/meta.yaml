@@ -61,7 +61,8 @@ requirements:
 test:
   commands:
     ## try some null tests
-    - env  # [not win]
+    - $R -e "sessionInfo()"  # [not win]
+    - $R -e "library('GA');sessionInfo()"  # [not win]
     - $R -e "sessionInfo()"  # [not win]
     #- $R -e "library('GA')"           # [not win]
     #- "\"%R%\" -e \"library('GA')\""  # [win]
