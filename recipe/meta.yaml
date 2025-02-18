@@ -12,20 +12,30 @@ source:
   sha256: e59f6638534e858eeac541efd774046ef3db130345999a374b6ce6dfbab081bd
 
 build:
-  number: 2
-  skip: true  # [win and r_base == "3.6"]
+  number: 3
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
-    - {{ compiler('c') }}              # [not win]
-    - {{ stdlib("c") }}                # [not win]
-    - {{ compiler('m2w64_c') }}        # [win]
-    - {{ stdlib("m2w64_c") }}          # [win]
-    - {{ compiler('cxx') }}            # [not win]
-    - {{ compiler('m2w64_cxx') }}      # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+    - r-cli                        # [build_platform != target_platform]
+    - r-crayon                     # [build_platform != target_platform]
+    - r-foreach                    # [build_platform != target_platform]
+    - r-iterators                  # [build_platform != target_platform]
+    - r-rcpp                       # [build_platform != target_platform]
+    - r-rcpparmadillo              # [build_platform != target_platform]
+    - {{ compiler('c') }}          # [not win]
+    - {{ stdlib("c") }}            # [not win]
+    - {{ compiler('m2w64_c') }}    # [win]
+    - {{ stdlib("m2w64_c") }}      # [win]
+    - {{ compiler('cxx') }}        # [not win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}make
     - {{ posix }}sed               # [win]
@@ -33,20 +43,20 @@ requirements:
     - {{ posix }}zip               # [win]
   host:
     - r-base
-    - r-rcpp
-    - r-rcpparmadillo
     - r-cli
     - r-crayon
     - r-foreach
     - r-iterators
+    - r-rcpp
+    - r-rcpparmadillo
   run:
     - r-base
-    - r-rcpp
-    - r-rcpparmadillo
     - r-cli
     - r-crayon
     - r-foreach
     - r-iterators
+    - r-rcpp
+    - r-rcpparmadillo
 
 test:
   commands:
@@ -55,6 +65,7 @@ test:
 
 about:
   home: https://luca-scr.github.io/GA/
+  dev_url: https://github.com/luca-scr/GA/
   license: GPL-2.0-or-later
   summary: Flexible general-purpose toolbox implementing genetic algorithms (GAs) for stochastic optimisation. Binary, real-valued, and permutation representations are available to optimize a fitness function, i.e. a function provided by users depending on their objective function. Several genetic operators are available
     and can be combined to explore the best settings for the current task. Furthermore, users can define new genetic operators and easily evaluate their performances. Local search using general-purpose optimisation algorithms can be applied stochastically to exploit interesting regions. GAs can be run sequentially or in
@@ -62,6 +73,7 @@ about:
   license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
