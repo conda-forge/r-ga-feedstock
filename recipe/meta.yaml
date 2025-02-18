@@ -13,15 +13,17 @@ source:
 
 build:
   number: 2
-  skip: true  # [not ppc64le]
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
-    - cross-r-base 4.3.3=ha770c72_15    # [(build_platform != target_platform) and (r_base == "4.3")]
-    - cross-r-base 4.4.2=ha770c72_0    # [(build_platform != target_platform) and (r_base == "4.4")]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
     - r-cli                        # [build_platform != target_platform]
     - r-crayon                     # [build_platform != target_platform]
     - r-foreach                    # [build_platform != target_platform]
@@ -40,42 +42,30 @@ requirements:
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
-    - r-base =4.3.3=hc8efcea_15  # [r_base == "4.3"]
-    - r-base =4.4.2=h06eca8b_0   # [r_base == "4.4"]
-    - r-rcpp
-    - r-rcpparmadillo
+    - r-base
     - r-cli
     - r-crayon
     - r-foreach
     - r-iterators
+    - r-rcpp
+    - r-rcpparmadillo
   run:
-    - r-base =4.3.3=hc8efcea_15  # [r_base == "4.3"]
-    - r-base =4.4.2=h06eca8b_0   # [r_base == "4.4"]
-    - r-rcpp
-    - r-rcpparmadillo
+    - r-base
     - r-cli
     - r-crayon
     - r-foreach
     - r-iterators
+    - r-rcpp
+    - r-rcpparmadillo
 
 test:
   commands:
-    ## try some null tests
-    - $R -e "sessionInfo()"  # [not win]
-    - $R -e "library('iterators');sessionInfo()"  # [not win]
-    - $R -e "library('foreach');sessionInfo()"  # [not win]
-    - $R -e "library('compiler');sessionInfo()"  # [not win]
-    - $R -e "library('crayon');sessionInfo()"  # [not win]
-    - $R -e "library('Rcpp');sessionInfo()"  # [not win]
-    - $R -e "library('codetools');sessionInfo()"  # [not win]
-    - $R -e "library('cli');sessionInfo()"  # [not win]
-    - $R -e "library('GA');sessionInfo()"  # [not win]
-    - $R -e "sessionInfo()"  # [not win]
-    #- $R -e "library('GA')"           # [not win]
-    #- "\"%R%\" -e \"library('GA')\""  # [win]
+    - $R -e "library('GA')"           # [not win]
+    - "\"%R%\" -e \"library('GA')\""  # [win]
 
 about:
   home: https://luca-scr.github.io/GA/
+  dev_url: https://github.com/luca-scr/GA/
   license: GPL-2.0-or-later
   summary: Flexible general-purpose toolbox implementing genetic algorithms (GAs) for stochastic optimisation. Binary, real-valued, and permutation representations are available to optimize a fitness function, i.e. a function provided by users depending on their objective function. Several genetic operators are available
     and can be combined to explore the best settings for the current task. Furthermore, users can define new genetic operators and easily evaluate their performances. Local search using general-purpose optimisation algorithms can be applied stochastically to exploit interesting regions. GAs can be run sequentially or in
@@ -83,6 +73,7 @@ about:
   license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
