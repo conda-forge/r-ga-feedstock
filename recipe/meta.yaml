@@ -1,4 +1,4 @@
-{% set version = "3.2.4" %}
+{% set version = "3.2.5" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,10 +9,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/GA_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/GA/GA_{{ version }}.tar.gz
-  sha256: e59f6638534e858eeac541efd774046ef3db130345999a374b6ce6dfbab081bd
+  sha256: fe04d36471b9f8de64ddd92fa9f3447140dfc31c93841a0e435f017c99a9d636
 
 build:
-  number: 4
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
